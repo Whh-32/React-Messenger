@@ -1,11 +1,19 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 
 const Test3 = () => {
     const params = useParams()
+    const location = useLocation()
+    const navigate = useNavigate()
+    const clickHandler = () => {
+        navigate({
+            pathname: location.pathname,
+            search: `?exit=true`
+        })
+    }
     return (
         <div>
-            <h3>Quot {params.page}</h3>
+            <h3 onClick={clickHandler}>Quot {params.page}</h3>
         </div>
     )
 }
