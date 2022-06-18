@@ -3,40 +3,26 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
     position: fixed;
     top: 0;
     z-index: 900;
+    padding: 0 100px;
+    backdrop-filter: blur(10px);
+    background-color: #ffffffbe;
+    border-bottom: 1px solid #dddddd;
 }
 
-.nav {
-    width: 100%;
+.rightHeader {
+    position: relative;
     height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    background-color: #ffffffbe;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid #dddddd;
-    padding: 0 100px;
-}
-
-.nav>ul {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: row-reverse;
-}
-
-.nav>ul>li {
-    margin-left: 20px;
-    position: relative;
-    display: flex;
+    flex-direction: row-reverse;
     align-items: center;
 }
 
-.nav>ul>li>button {
+.rightHeader>button {
     background-color: #007FFF;
     color: aliceblue;
     border: none;
@@ -45,9 +31,15 @@
     height: 35px;
     font-size: 14px;
     cursor: pointer;
+    margin-left: 20px;
+    transition: all 500ms;
 }
 
-.nav>ul>li>input {
+.rightHeader>button:hover {
+    background-color: #117be6;
+}
+
+.rightHeader>input {
     background-color: #F3F6F9;
     width: 180px;
     height: 35px;
@@ -57,11 +49,56 @@
     padding-left: 35px;
     padding-bottom: 4px;
     font-size: 15px;
+    margin-left: 20px;
 }
 
-.nav>ul>li>i {
+.rightHeader>i {
     width: 18px;
     height: 18px;
     position: absolute;
-    left: 8px;
+    left: 29px;
+}
+
+.leftHeader {
+    justify-self: end;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav {
+    height: 100%;
+    display: flex;
+}
+
+.nav>ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav>ul>li {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    position: relative;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.nav>ul>li>a {
+    height: 100%;
+    align-items: center;
+    display: flex;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 800;
+    font-size: 0.91rem;
+}
+
+.active {
+    border-bottom: 3px solid #007FFF;
 }

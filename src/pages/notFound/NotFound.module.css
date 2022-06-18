@@ -1,0 +1,20 @@
+.notFound {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100vh - 60px);
+}
+
+.notFound :nth-child(1) {
+    font-weight: 900;
+    color: #0061C2;
+    font-size: 7.5rem;
+}
+
+.notFound :nth-child(2) {
+    font-weight: 400;
+    color: rgb(209, 209, 209);
+    font-size: 2.5rem;
+}
