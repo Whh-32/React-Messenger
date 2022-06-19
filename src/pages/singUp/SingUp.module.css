@@ -1,0 +1,103 @@
+.singUp {
+    background: url(../../assets/images/background.svg);
+    background-size: 100% 100vh cover;
+    width: 100%;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contain {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box {
+    position: relative;
+    width: 400px;
+    background-color: rgba(247, 247, 247, 0.384);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid #dddddd;
+    backdrop-filter: blur(1px);
+    padding: 10px;
+}
+
+.title {
+    position: relative;
+    top: 0;
+    font-size: 1.8rem;
+    color: #0061C2;
+    font-weight: 900;
+}
+
+.box>form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.input {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
+    margin: 10px;
+}
+
+.input>label {
+    font-size: 14px;
+}
+
+.input>label.validate {
+    color: rgb(223, 53, 53);
+}
+
+.input>input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    margin-top: 8px;
+    padding-left: 10px;
+    padding-bottom: 2px;
+    border: 1px solid #dddddd;
+}
+
+.input>input.validate {
+    border: 1px solid rgb(252, 80, 80) !important;
+
+}
+
+form>span {
+    font-size: 12px;
+}
+
+form>span>a {
+    text-decoration: none;
+    color: #0061C2;
+}
+
+.box>form>button {
+    width: 90px;
+    height: 35px;
+    border: none;
+    color: #ffffff;
+    border-radius: 8px;
+    background-color: #0061C2;
+    margin-top: 20px;
+    cursor: pointer;
+}

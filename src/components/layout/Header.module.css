@@ -1,17 +1,26 @@
 .header {
     height: 60px;
     width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 900;
+    backdrop-filter: blur(10px);
+    background-color: #ffffffbe;
+    border-bottom: 1px solid #dddddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contain {
+    height: 100%;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: row-reverse;
-    position: fixed;
-    top: 0;
-    z-index: 900;
-    padding: 0 100px;
-    backdrop-filter: blur(10px);
-    background-color: #ffffffbe;
-    border-bottom: 1px solid #dddddd;
 }
 
 .rightHeader {
@@ -22,7 +31,7 @@
     align-items: center;
 }
 
-.rightHeader>button {
+.rightHeader>a>button {
     background-color: #007FFF;
     color: aliceblue;
     border: none;
@@ -35,7 +44,7 @@
     transition: all 500ms;
 }
 
-.rightHeader>button:hover {
+.rightHeader>a>button:hover {
     background-color: #117be6;
 }
 
