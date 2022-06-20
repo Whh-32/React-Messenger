@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
+import AuthContext from '../../store/auth-context';
 import classes from './SingUp.module.css'
 
 const SingUp = () => {
     const path = useLocation().pathname;
     const location = path === "/Sing-Up" ? true : false;
+    const authCtx = useContext(AuthContext)
     const navigate = useNavigate()
 
+    const [loading, setLoading] = useState(false)
     const [enteredEmail, setEntredEmail] = useState('');
     const [enteredPassword, setEntredPassword] = useState('');
     const [passIsValid, setPassIsValid] = useState(true);
@@ -36,7 +39,7 @@ const SingUp = () => {
     const passwordHandler = (event) => {
         setEntredPassword(event.target.value);
     }
-    
+
     const emailFocusHandler = () => {
         setEmailFocus(true)
     }
@@ -56,13 +59,47 @@ const SingUp = () => {
     const submitHandler = (event) => {
         event.preventDefault();
         if (emaiIsValid && passIsValid && emailFocus && passFocus) {
-            navigate('/')
+            let url;
+            if (location) {
+                url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBKvwvCNsT785nHFeX0i4HL9S_gjnG_uts'
+            } else {
+                url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBKvwvCNsT785nHFeX0i4HL9S_gjnG_uts'
+            }
+            setLoading(true);
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: enteredEmail,
+                    password: enteredPassword,
+                    returnSecureToken: true
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                if (res.ok) {
+                    setLoading(false);
+                    return res.json()
+                } else {
+                    setLoading(false);
+                    return res.json().then((data) => {
+                        throw new Error(data.error.message);
+                    })
+                }
+            })
+            .then(data => {
+                authCtx.login(data.idToken)
+                navigate('/')
+            })
+            .catch(err => {
+                alert(err.message)
+            })
+
         } else {
             emailValidation()
             passwordValidation()
         }
     }
-
     return (
         <div className={classes.singUp}>
             <div className={classes.contain}>
@@ -99,7 +136,7 @@ const SingUp = () => {
                                 {location ? 'Login' : 'Sing Up'}
                             </Link>
                         </span>
-                        <button>Submit</button>
+                        {!loading ? <button>Submit</button> : <span className={classes.loading}></span>}
                     </form>
                 </div>
             </div>

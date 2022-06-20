@@ -101,3 +101,17 @@ form>span>a {
     margin-top: 20px;
     cursor: pointer;
 }
+
+.loading {
+    background: url(../../assets/images/loading.gif) no-repeat;
+    background-position: center;
+    background-size: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 35px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+}
