@@ -78,20 +78,20 @@ const SingUp = () => {
                 }
             }).then(res => {
                 if (res.ok) {
-                    setLoading(false);
                     return res.json()
                 } else {
-                    setLoading(false);
                     return res.json().then((data) => {
                         throw new Error(data.error.message);
                     })
                 }
             })
             .then(data => {
+                setLoading(false);
                 authCtx.login(data.idToken)
                 navigate('/')
             })
             .catch(err => {
+                setLoading(false);
                 alert(err.message)
             })
 
