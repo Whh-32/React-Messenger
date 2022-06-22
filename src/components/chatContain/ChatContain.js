@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
+import AuthContext from '../../store/auth-context'
 import classes from './ChatContain.module.css'
 
-const ChatContain = () => {
-    const [message, setMessage] = useState('')
+const ChatContain = (props) => {
+    const authCtx = useContext(AuthContext);
+    const [message, setMessage] = useState('');
+    const [dataChat, setDataChat] = useState([]);
     const activeButton = !!message.trim();
 
     const messageHandler = (event) => {
@@ -11,15 +14,60 @@ const ChatContain = () => {
     }
 
     const sendMessage = () => {
-        console.log("send...");
+        fetch(`https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats/${props.chatId}.json/`, {
+            method: 'POST',
+            body: JSON.stringify({
+                user: authCtx.user,
+                message: message
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            if (res.ok) {
+                return res.json()
+            } else {
+                return console.log(res.json())
+            }
+        })
+            .then(data => {
+                //console.log(data)
+            })
+
         setMessage('');
     }
+
+    useEffect(() => {
+        fetch(`https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats/${props.chatId}.json/`)
+            .then((res => {
+                if (res.ok) {
+                    return res.json()
+                } else {
+                    return res.json()
+                }
+            }))
+            .then(data => {
+                const chatData = [];
+                setDataChat(chatData)
+                for (const key in data) {
+                    chatData.push({
+                        user: data[key].user,
+                        message: data[key].message
+                    })
+                }
+            })
+    },[props.chatId])
 
     return (
         <div className={classes.chat}>
             <div className={classes.chatContain}>
-                <span className={classes.selfChat}>hello</span>
-                <span className={classes.contactChat}>by by</span>
+                {dataChat.map((pm, index) => {
+                    if (pm.user === authCtx.user) {
+                        return <span key={index} className={classes.selfChat}>{pm.message}</span>
+                    } else {
+                        return <span key={index} className={classes.contactChat}>{pm.message}</span>
+                    }
+                })}
             </div>
             <div className={classes.inputMessage}>
                 <input placeholder='type message' onChange={messageHandler} value={message} />

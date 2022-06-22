@@ -87,7 +87,23 @@ const SingUp = () => {
             })
             .then(data => {
                 setLoading(false);
-                authCtx.login(data.idToken)
+                authCtx.login(data.idToken, data.localId)
+                if (location) {
+                    fetch('https://react-messenger-7d63b-default-rtdb.firebaseio.com/contact.json', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            user: data.localId,
+                            name: 'unknown',
+                            photo: 'https://icons-for-free.com/download-icon-avatar+human+people+profile+user+icon-1320168139431219590_512.png',
+                            description: 'about me...',
+                        })
+                    }).then(Response => {
+                        console.log(Response)
+                    })
+                } 
                 navigate('/')
             })
             .catch(err => {
