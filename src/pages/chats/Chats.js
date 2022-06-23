@@ -82,7 +82,7 @@ const Chats = () => {
           }
         }
       })
-  }, [authCtx.user, user])
+  }, [authCtx.user, user, chatId])
 
   return (
     <div className={classes.chats}>

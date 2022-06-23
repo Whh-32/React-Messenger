@@ -42,12 +42,7 @@
     transition: all 500ms;
 }
 
-.inputMessage>button.active {
-    background-color: rgb(36, 87, 255);
-    cursor: pointer;
-}
-
-.chatContain {
+#sende {
     width: 100%;
     height: calc(100% - 40px);
     display: flex;
@@ -58,30 +53,42 @@
     padding: 0 10px;
 }
 
+.inputMessage>button.active {
+    background-color: rgb(36, 87, 255);
+    cursor: pointer;
+    /* padding: 5px; */
+}
+
 .selfChat {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: auto;
-    height: 35px;
+    height: auto;
     background-color: rgb(216, 216, 224);
     border-radius: 6px;
     margin: 10px;
     padding: 10px;
     font-size: 0.9rem;
     align-self: flex-end;
+    padding: 10px 40px 10px 15px;
+    max-width: 70%;
+    direction: rtl;
 }
 
 .contactChat {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: auto;
-    height: 35px;
+    height: auto;
     background-color: rgb(161, 161, 235);
     border-radius: 6px;
     margin: 10px;
     padding: 10px;
     font-size: 0.9rem;
     align-self: flex-start;
+    max-width: 70%;
+    padding: 10px 40px 15px 10px;
+    direction: rtl;
 }

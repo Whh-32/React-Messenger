@@ -30,44 +30,39 @@ const ChatContain = (props) => {
                 return console.log(res.json())
             }
         })
-            .then(data => {
-                //console.log(data)
-            })
-
+            .then(data => { })
         setMessage('');
     }
 
     useEffect(() => {
+        const chatData = [];
         fetch(`https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats/${props.chatId}.json/`)
-            .then((res => {
-                if (res.ok) {
-                    return res.json()
-                } else {
-                    return res.json()
-                }
-            }))
+            .then((res => res.json()))
             .then(data => {
-                const chatData = [];
-                setDataChat(chatData)
                 for (const key in data) {
                     chatData.push({
                         user: data[key].user,
                         message: data[key].message
                     })
                 }
+                setDataChat(chatData)
             })
-    },[props.chatId])
+        let slam = document.getElementById(classes.sende);
+        slam.scrollTop = slam.scrollHeight
+    });
 
     return (
         <div className={classes.chat}>
-            <div className={classes.chatContain}>
-                {dataChat.map((pm, index) => {
-                    if (pm.user === authCtx.user) {
-                        return <span key={index} className={classes.selfChat}>{pm.message}</span>
-                    } else {
-                        return <span key={index} className={classes.contactChat}>{pm.message}</span>
-                    }
-                })}
+            <div id={classes.sende} className={classes.chatContain}>
+                {
+                    dataChat.map((pm, index) => {
+                        if (pm.user === authCtx.user) {
+                            return <span key={index} className={classes.selfChat}>{pm.message}</span>
+                        } else if (!pm.user === authCtx.user) {
+                            return <span key={index} className={classes.contactChat}>{pm.message}</span>
+                        }
+                    })
+                }
             </div>
             <div className={classes.inputMessage}>
                 <input placeholder='type message' onChange={messageHandler} value={message} />
