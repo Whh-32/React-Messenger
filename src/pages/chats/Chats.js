@@ -21,13 +21,7 @@ const Chats = () => {
 
     let chatID;
     fetch('https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats.json')
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        } else {
-          return console.log(res.json())
-        }
-      })
+      .then(res => {return res.json()})
       .then(data => {
         if (data === null) {
           fetch('https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats.json', {
@@ -39,13 +33,7 @@ const Chats = () => {
               'Content-Type': 'application/json'
             }
           })
-            .then(res => {
-              if (res.ok) {
-                return res.json()
-              } else {
-                return console.log(res.json())
-              }
-            })
+            .then(res => {return res.json()})
             .then(data => {
               // console.log(data.name);
               setChatId(data.name);
@@ -54,7 +42,7 @@ const Chats = () => {
           for (const key in data) {
             if (data[key].id === user + authCtx.user || data[key].id === authCtx.user + user) {
               chatID = key
-              setChatId(chatID)
+              setChatId(key)
             }
           }
 
@@ -68,13 +56,7 @@ const Chats = () => {
                 'Content-Type': 'application/json'
               }
             })
-              .then(res => {
-                if (res.ok) {
-                  return res.json()
-                } else {
-                  return console.log(res.json())
-                }
-              })
+              .then(res => {return res.json()})
               .then(data => {
                 // console.log(data.name);
                 setChatId(data.name);
@@ -82,13 +64,13 @@ const Chats = () => {
           }
         }
       })
-  }, [authCtx.user, user, chatId])
+  }, [authCtx.user, user])
 
   return (
     <div className={classes.chats}>
       <div className={classes.chatsContain}>
         <ChatContact onGetUser={getUserId} />
-        <ChatContain chatId={chatId} />
+        <ChatContain key={chatId} chatId={chatId} />
       </div>
     </div>
   )
