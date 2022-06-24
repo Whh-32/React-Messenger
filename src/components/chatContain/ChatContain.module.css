@@ -60,9 +60,6 @@
 }
 
 .userChat {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: auto;
     height: auto;
     border-radius: 6px;
@@ -70,7 +67,7 @@
     padding: 10px;
     font-size: 0.9rem;
     max-width: 70%;
-    direction: rtl;
+    word-wrap: break-word;
 }
 
 .selfChat {

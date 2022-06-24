@@ -1,19 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 
 import AuthContext from '../../store/auth-context'
 import classes from './ChatContain.module.css'
 
 const ChatContain = (props) => {
+    const dummy = useRef()
     const authCtx = useContext(AuthContext);
     const [message, setMessage] = useState('');
-    const [dataChat, setDataChat] = useState([]);
     const activeButton = !!message.trim();
+    const [dataChat, setDataChat] = useState([]);
+    // const [isLoading, setIsLoading] = useState(false)
 
     const messageHandler = (event) => {
         setMessage(event.target.value);
     }
 
+    // useEffect(() => {
+    //     isLoading && dummy.current.scrollIntoView();
+    // }, [])
+
     const sendMessage = () => {
+        // dummy.current.scrollIntoView({ behavior: 'smooth' });
         fetch(`https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats/${props.chatId}.json/`, {
             method: 'POST',
             body: JSON.stringify({
@@ -35,34 +42,41 @@ const ChatContain = (props) => {
     }
 
     useEffect(() => {
-        const chatData = [];
-        fetch(`https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats/${props.chatId}.json/`)
-            .then((res => res.json()))
-            .then(data => {
-                for (const key in data) {
-                    chatData.push({
-                        user: data[key].user,
-                        message: data[key].message
-                    })
-                }
-                setDataChat(chatData.slice(0,-1))
-            })
-        // let slam = document.getElementById(classes.sende);
-        // slam.scrollTop = slam.scrollHeight
+        getDataChat()
+        async function getDataChat() {
+            // setIsLoading(true);
+
+            await fetch(`https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats/${props.chatId}.json/`)
+                .then((res => res.json()))
+                .then(data => {
+                    const chatData = [];
+                    for (const key in data) {
+                        chatData.push({
+                            user: data[key].user,
+                            message: data[key].message
+                        })
+                    }
+                    setDataChat(chatData.slice(0, -1));
+                    // setIsLoading(false);
+                    JSON.stringify(dataChat) !== JSON.stringify(chatData.slice(0, -1)) &&
+                        dummy.current.scrollIntoView({ behavior: 'smooth' });
+                });
+
+        }
+        // dataChat !== getDataChat && dummy.current.scrollIntoView({ behavior: 'smooth' });
     });
 
     return (
         <div className={classes.chat}>
             <div id={classes.sende} className={classes.chatContain}>
-                {
-                    dataChat.map((pm, index) => {
-                        if (pm.user === authCtx.user) {
-                            return <span key={index} className={`${classes.selfChat} ${classes.userChat}`}>{pm.message}</span>
-                        } else {
-                            return <span key={index} className={`${classes.contactChat} ${classes.userChat}`}>{pm.message}</span>
-                        }
-                    })
-                }
+                {dataChat.map((pm, index) => {
+                    if (pm.user === authCtx.user) {
+                        return <span dir='auto' key={index} className={`${classes.selfChat} ${classes.userChat}`}>{pm.message}</span>
+                    } else {
+                        return <span dir='auto' key={index} className={`${classes.contactChat} ${classes.userChat}`}>{pm.message}</span>
+                    }
+                })}
+                <div ref={dummy}></div>
             </div>
             <div className={classes.inputMessage}>
                 <input placeholder='type message' onChange={messageHandler} value={message} />
