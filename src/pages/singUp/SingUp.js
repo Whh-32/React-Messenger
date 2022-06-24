@@ -96,12 +96,12 @@ const SingUp = () => {
                         },
                         body: JSON.stringify({
                             user: data.localId,
-                            name: 'unknown',
+                            name: enteredEmail,
                             photo: 'https://icons-for-free.com/download-icon-avatar+human+people+profile+user+icon-1320168139431219590_512.png',
                             description: 'about me...',
                         })
                     }).then(Response => {
-                        console.log(Response)
+                        // console.log(Response) //ok
                     })
                 } 
                 navigate('/')

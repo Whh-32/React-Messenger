@@ -45,7 +45,7 @@ const ChatContain = (props) => {
                         message: data[key].message
                     })
                 }
-                setDataChat(chatData)
+                setDataChat(chatData.slice(0,-1))
             })
         // let slam = document.getElementById(classes.sende);
         // slam.scrollTop = slam.scrollHeight
@@ -57,9 +57,9 @@ const ChatContain = (props) => {
                 {
                     dataChat.map((pm, index) => {
                         if (pm.user === authCtx.user) {
-                            return <span key={index} className={classes.selfChat}>{pm.message}</span>
+                            return <span key={index} className={`${classes.selfChat} ${classes.userChat}`}>{pm.message}</span>
                         } else {
-                            return <span key={index} className={classes.contactChat}>{pm.message}</span>
+                            return <span key={index} className={`${classes.contactChat} ${classes.userChat}`}>{pm.message}</span>
                         }
                     })
                 }

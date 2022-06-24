@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
+import AuthContext from '../../store/auth-context'
 import classes from './ChatContact.module.css'
 import Contact from './Contact'
 
 const ChatContact = (props) => {
+  const authCtx = useContext(AuthContext);
   const [contacts, setContacts] = useState([]);
   const [isLoading, setISLoading] = useState(false);
   const [user, setUser] = useState('')
@@ -35,7 +37,7 @@ const ChatContact = (props) => {
   }
   useEffect(() => {
     props.onGetUser(user);
-  },[user])
+  }, [user, props])
 
   return (
     <div className={classes.contacts}>
@@ -46,6 +48,7 @@ const ChatContact = (props) => {
         {isLoading && <div className={classes.loading}></div>}
         {!isLoading &&
           contacts.map(contact => (
+            contact.user !== authCtx.user &&
             <Contact
               onClickUser={sendUser}
               key={contact.key}
