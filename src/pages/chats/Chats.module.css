@@ -13,6 +13,11 @@
     max-width: 1200px;
     padding: 0 20px;
     display: flex;
-
+    transition: all 500ms;
 }
 
+@media (max-width: 500px) {
+    .chatsContain {
+        padding: 0;
+    }
+}

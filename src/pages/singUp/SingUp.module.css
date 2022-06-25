@@ -4,7 +4,7 @@
     width: 100%;
     min-height: calc(100vh - 60px);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -19,7 +19,8 @@
 
 .box {
     position: relative;
-    width: 400px;
+    width: 350px;
+    margin: 20px;
     background-color: rgba(247, 247, 247, 0.384);
     display: flex;
     align-items: center;
@@ -45,7 +46,7 @@
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    padding: 20px 0;
+    padding: 15px 0;
 }
 
 .input {
@@ -53,8 +54,9 @@
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    width: 70%;
+    width: 80%;
     margin: 10px;
+    transition: all 500ms;
 }
 
 .input>label {
@@ -114,4 +116,18 @@ form>span>a {
     border-radius: 8px;
     overflow: hidden;
     margin-top: 20px;
+}
+
+@media (max-width: 800px) {
+    .input {
+        width: 90%;
+    }
+
+    .contain {
+        align-items: flex-start;
+    }
+
+    .singUp {
+        align-items: flex-start;
+    }
 }

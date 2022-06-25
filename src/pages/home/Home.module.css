@@ -80,4 +80,37 @@
     width: 480px;
     text-align: center;
     font-size: 0.9rem;
+    color: rgb(68, 68, 68);
+}
+
+@media (max-width: 1010px) {
+    .poster {
+        display: none;
+    }
+
+    .info {
+        padding: 20px 0;
+        align-items: center;
+    }
+
+    .title {
+        line-height: 55px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .description {
+        text-align: center;
+    }
+    
+}
+
+@media (max-width: 500px) {
+    .info {
+        width: 100%;
+    }
+
+    .description {
+        width: auto;
+    }
 }

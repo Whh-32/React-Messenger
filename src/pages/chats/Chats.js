@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import AuthContext from '../../store/auth-context';
 import ChatContact from '../../components/chatContact/ChatContact'
 import ChatContain from '../../components/chatContain/ChatContain'
 import classes from './Chats.module.css'
+import FirstChatPage from '../../components/firstChatPage/FirstChatPage';
 
 const Chats = () => {
   const authCtx = useContext(AuthContext);
@@ -21,7 +23,7 @@ const Chats = () => {
 
     let chatID;
     fetch('https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats.json')
-      .then(res => {return res.json()})
+      .then(res => { return res.json() })
       .then(data => {
         if (data === null) {
           fetch('https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats.json', {
@@ -33,7 +35,7 @@ const Chats = () => {
               'Content-Type': 'application/json'
             }
           })
-            .then(res => {return res.json()})
+            .then(res => { return res.json() })
             .then(data => {
               // console.log(data.name);
               setChatId(data.name);
@@ -56,7 +58,7 @@ const Chats = () => {
                 'Content-Type': 'application/json'
               }
             })
-              .then(res => {return res.json()})
+              .then(res => { return res.json() })
               .then(data => {
                 // console.log(data.name);
                 setChatId(data.name);
@@ -70,7 +72,10 @@ const Chats = () => {
     <div className={classes.chats}>
       <div className={classes.chatsContain}>
         <ChatContact onGetUser={getUserId} />
-        <ChatContain key={chatId} chatId={chatId} />
+        <Routes>
+          <Route index element={<FirstChatPage />} />
+          <Route path='/Chat' element={<ChatContain key={chatId} chatId={chatId} />} />
+        </Routes>
       </div>
     </div>
   )

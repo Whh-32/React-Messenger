@@ -1,0 +1,30 @@
+.firstChatPage {
+    padding: 10px 0;
+    position: relative;
+    width: 70%;
+    height: 100%;
+    background-color: rgb(247, 247, 247);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.image {
+    width: 60%;
+    height: auto;
+}
+
+.image>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.firstChatPage>span {
+    margin-top: 20px;
+    font-size: 14px;
+    width: 70%;
+    text-align: center;
+    color: #000000;
+}

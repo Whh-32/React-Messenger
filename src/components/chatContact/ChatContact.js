@@ -3,12 +3,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import AuthContext from '../../store/auth-context'
 import classes from './ChatContact.module.css'
 import Contact from './Contact'
+import HeaderContact from './HeaderContact'
 
 const ChatContact = (props) => {
   const authCtx = useContext(AuthContext);
   const [contacts, setContacts] = useState([]);
   const [isLoading, setISLoading] = useState(false);
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState('');
+  const [index, setIndex] = useState(false);
 
   useEffect(() => {
     setISLoading(true)
@@ -35,28 +37,32 @@ const ChatContact = (props) => {
   const sendUser = (user) => {
     setUser(user)
   }
+
   useEffect(() => {
     props.onGetUser(user);
   }, [user, props])
 
   return (
-    <div className={classes.contacts}>
-      <div className={classes.header}>
-
-      </div>
+    <div className={`${index ? classes.smallClass : ''} ${classes.contacts}`} >
+      <HeaderContact />
       <div className={classes.contactsContain}>
         {isLoading && <div className={classes.loading}></div>}
         {!isLoading &&
-          contacts.map(contact => (
+          contacts.map((contact) => (
             contact.user !== authCtx.user &&
-            <Contact
-              onClickUser={sendUser}
+            <div
               key={contact.key}
-              name={contact.name}
-              avatar={contact.avatar}
-              description={contact.description}
-              user={contact.user}
-            />
+              onClick={() => setIndex(contact.key)}
+              className={`${contact.key === index ? classes.active : ''} ${classes.contact}`}
+            >
+              <Contact
+                onClickUser={sendUser}
+                name={contact.name}
+                avatar={contact.avatar}
+                description={contact.description}
+                user={contact.user}
+              />
+            </div>
           ))}
       </div>
     </div>

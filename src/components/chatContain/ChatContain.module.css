@@ -2,6 +2,7 @@
     padding: 10px 0;
     position: relative;
     background: url(../../assets/images/background.svg);
+    min-width: calc(70% - 300px);
     width: 70%;
     height: 100%;
     background-color: rgb(247, 247, 247);
@@ -77,7 +78,19 @@
 }
 
 .contactChat {
-    background-color: rgb(161, 161, 235);
+    background-color: #567BFA;
     align-self: flex-start;
     padding: 10px 15px 10px 40px;
+}
+
+@media (max-width: 800px) {
+    .chat {
+        position: absolute;
+        left: 0;
+        width: 100%;
+
+    }
+    .inputMessage {
+        padding: 0 10px;
+    }
 }
