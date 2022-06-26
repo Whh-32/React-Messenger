@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import AuthContext from '../../store/auth-context'
 import classes from './ChatContact.module.css'
@@ -11,8 +12,10 @@ const ChatContact = (props) => {
   const [isLoading, setISLoading] = useState(false);
   const [user, setUser] = useState('');
   const [index, setIndex] = useState(false);
+  const { pathname } = useLocation()
 
   useEffect(() => {
+    pathname === '/Contacts' && setIndex(false)
     setISLoading(true)
     fetch('https://react-messenger-7d63b-default-rtdb.firebaseio.com/contact.json')
       .then(res => {
@@ -32,10 +35,10 @@ const ChatContact = (props) => {
           })
         }
       })
-  }, []);
+  }, [pathname]);
 
   const sendUser = (user) => {
-    setUser(user)
+    setUser(user);
   }
 
   useEffect(() => {

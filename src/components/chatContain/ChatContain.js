@@ -15,12 +15,7 @@ const ChatContain = (props) => {
         setMessage(event.target.value);
     }
 
-    // useEffect(() => {
-    //     isLoading && dummy.current.scrollIntoView();
-    // }, [])
-
     const sendMessage = () => {
-        // dummy.current.scrollIntoView({ behavior: 'smooth' });
         fetch(`https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats/${props.chatId}.json/`, {
             method: 'POST',
             body: JSON.stringify({
@@ -42,26 +37,45 @@ const ChatContain = (props) => {
     }
 
     useEffect(() => {
-        getDataChat()
-        async function getDataChat() {
-            // setIsLoading(true);
-            await fetch(`https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats/${props.chatId}.json/`)
-                .then((res => res.json()))
-                .then(data => {
-                    const chatData = [];
-                    for (const key in data) {
-                        chatData.push({
-                            user: data[key].user,
-                            message: data[key].message
-                        })
+        const interval = setInterval(() => {
+            const getDataChat = async () => {
+                const response = await fetch(`https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats/${props.chatId}.json/`)
+                const data = await response.json()
+                const chatData = [];
+                for (const key in data) {
+                    chatData.push({
+                        user: data[key].user,
+                        message: data[key].message
+                    })
+                }
+                return chatData.slice(0, -1)
+            }
+
+            getDataChat().then(data => {
+                setDataChat(prev => {
+                    if (data.length === 0) {
+                        setTimeout(() => { autoScroll("first") }, 0)
+                        return data
+                    } else if (data.length !== prev.length) {
+                        setTimeout(() => { autoScroll("open") }, 0)
+                        return data
+                    } else {
+                        return prev
                     }
-                    setDataChat(chatData.slice(0, -1));
-                    // setIsLoading(false);
-                    JSON.stringify(dataChat) !== JSON.stringify(chatData.slice(0, -1)) &&
-                        dummy.current.scrollIntoView({ behavior: 'smooth' });
                 });
-        }
-    });
+
+                const autoScroll = (state) => {
+                    if (state === "first") {
+                        dummy.current.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        dummy.current.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            })
+            getDataChat()
+        }, 500);
+        return () => clearInterval(interval);
+    }, [dataChat, props.chatId]);
 
     return (
         <div className={classes.chat}>
@@ -77,7 +91,7 @@ const ChatContain = (props) => {
                     <div ref={dummy}></div>
                 </div>
                 <div className={classes.inputMessage}>
-                    <input placeholder='type message' onChange={messageHandler} value={message} />
+                    <input dir='auto' placeholder='type message' onChange={messageHandler} value={message} />
                     <button
                         onClick={sendMessage}
                         disabled={!activeButton}

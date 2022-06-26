@@ -97,7 +97,7 @@ const SingUp = () => {
                         body: JSON.stringify({
                             user: data.localId,
                             name: enteredEmail,
-                            photo: 'https://icons-for-free.com/download-icon-avatar+human+people+profile+user+icon-1320168139431219590_512.png',
+                            photo: 'https://www.rain.co.za/assets/images/about-my-rain/icons/acc%20icon.png',
                             description: 'about me...',
                         })
                     }).then(Response => {
