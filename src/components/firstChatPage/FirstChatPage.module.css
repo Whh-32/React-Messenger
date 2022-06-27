@@ -28,3 +28,9 @@
     text-align: center;
     color: #000000;
 }
+
+@media (max-width: 800px) {
+    .firstChatPage {
+        display: none;
+    }
+}
