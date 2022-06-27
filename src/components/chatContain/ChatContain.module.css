@@ -61,6 +61,7 @@
 }
 
 .userChat {
+    position: relative;
     width: auto;
     height: auto;
     border-radius: 6px;
@@ -74,13 +75,13 @@
 .selfChat {
     background-color: rgb(216, 216, 224);
     align-self: flex-end;
-    padding: 10px 40px 10px 15px;
+    padding: 10px 45px 10px 15px;
 }
 
 .contactChat {
     background-color: #567BFA;
     align-self: flex-start;
-    padding: 10px 15px 10px 40px;
+    padding: 10px 15px 10px 45px;
 }
 
 @media (max-width: 800px) {
@@ -93,4 +94,12 @@
     .inputMessage {
         padding: 0 10px;
     }
+}
+
+.time {
+    position: absolute;
+    bottom: 0;
+    margin: 8px;
+    font-size: 11px;
+    color: rgb(77, 77, 77);
 }

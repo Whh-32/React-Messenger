@@ -16,11 +16,16 @@ const ChatContain = (props) => {
     }
 
     const sendMessage = () => {
+        const time = new Date()
+        const hours = time.getHours()
+        const minuts = time.getMinutes()
+
         fetch(`https://react-messenger-7d63b-default-rtdb.firebaseio.com/chats/${props.chatId}.json/`, {
             method: 'POST',
             body: JSON.stringify({
                 user: authCtx.user,
-                message: message
+                message: message,
+                time: `${hours < 10 ? "0"+hours : hours}:${minuts < 10 ? "0"+minuts : minuts}`
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -45,7 +50,8 @@ const ChatContain = (props) => {
                 for (const key in data) {
                     chatData.push({
                         user: data[key].user,
-                        message: data[key].message
+                        message: data[key].message,
+                        time: data[key].time
                     })
                 }
                 return chatData.slice(0, -1)
@@ -83,15 +89,33 @@ const ChatContain = (props) => {
                 <div id={classes.sende} className={classes.chatContain}>
                     {dataChat.map((pm, index) => {
                         if (pm.user === authCtx.user) {
-                            return <span dir='auto' key={index} className={`${classes.selfChat} ${classes.userChat}`}>{pm.message}</span>
+                            return (
+                                <span
+                                    dir='auto'
+                                    key={index}
+                                    className={`${classes.selfChat} ${classes.userChat}`}
+                                >
+                                    {pm.message}
+                                    <span style={{ right: "0" }} className={classes.time}>{pm.time}</span>
+                                </span>
+                            )
                         } else {
-                            return <span dir='auto' key={index} className={`${classes.contactChat} ${classes.userChat}`}>{pm.message}</span>
+                            return (
+                                <span
+                                    dir='auto'
+                                    key={index}
+                                    className={`${classes.contactChat} ${classes.userChat}`}
+                                >
+                                    {pm.message}
+                                    <span style={{ left: "0" }} className={classes.time}>{pm.time}</span>
+                                </span>
+                            )
                         }
                     })}
                     <div ref={dummy}></div>
                 </div>
                 <div className={classes.inputMessage}>
-                    <input dir='auto' placeholder='type message' onChange={messageHandler} value={message} />
+                    <input spellCheck={false} dir='auto' placeholder='type message' onChange={messageHandler} value={message} />
                     <button
                         onClick={sendMessage}
                         disabled={!activeButton}

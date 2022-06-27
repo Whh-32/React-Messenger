@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import classes from './HeaderContact.module.css'
 
-const HeaderContact = () => {
+const HeaderContact = (props) => {
+  const [search, setSearch] = useState()
+  const serchHandler = (e) => {
+    setSearch(e.target.value)
+  }
+  useEffect(() => {
+    props.onSearch(search)
+  },[search, props])
+
+
   return (
     <div className={classes.header}>
       <i>
@@ -10,7 +19,7 @@ const HeaderContact = () => {
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </i>
-      <input placeholder='search...' />
+      <input spellCheck={false} onChange={serchHandler} placeholder='search...' />
     </div>
   )
 }

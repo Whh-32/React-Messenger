@@ -9,10 +9,11 @@ import HeaderContact from './HeaderContact'
 const ChatContact = (props) => {
   const authCtx = useContext(AuthContext);
   const [contacts, setContacts] = useState([]);
+  const [search, setSearch] = useState('');
   const [isLoading, setISLoading] = useState(false);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState();
   const [index, setIndex] = useState(false);
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
   useEffect(() => {
     pathname === '/Contacts' && setIndex(false)
@@ -41,32 +42,47 @@ const ChatContact = (props) => {
     setUser(user);
   }
 
+  const searchHandler = (text) => {
+    setSearch(text)
+  }
+
   useEffect(() => {
     props.onGetUser(user);
   }, [user, props])
 
   return (
     <div className={`${index ? classes.smallClass : ''} ${classes.contacts}`} >
-      <HeaderContact />
+      <HeaderContact onSearch={searchHandler} />
       <div className={classes.contactsContain}>
         {isLoading && <div className={classes.loading}></div>}
         {!isLoading &&
-          contacts.map((contact) => (
-            contact.user !== authCtx.user &&
-            <div
-              key={contact.key}
-              onClick={() => setIndex(contact.key)}
-              className={`${contact.key === index ? classes.active : ''} ${classes.contact}`}
-            >
-              <Contact
-                onClickUser={sendUser}
-                name={contact.name}
-                avatar={contact.avatar}
-                description={contact.description}
-                user={contact.user}
-              />
-            </div>
-          ))}
+          contacts.map((contact) => {
+            if (contact.user !== authCtx.user) {
+              if (contact.name === search && search) {
+                return <div key={contact.key} onClick={() => setIndex(contact.key)} className={`${contact.key === index ? classes.active : ''} ${classes.contact}`}
+                >
+                  <Contact
+                    onClickUser={sendUser}
+                    name={contact.name}
+                    avatar={contact.avatar}
+                    description={contact.description}
+                    user={contact.user}
+                  />
+                </div>
+              } else if (search === undefined || search === '') {
+                return <div key={contact.key} onClick={() => setIndex(contact.key)} className={`${contact.key === index ? classes.active : ''} ${classes.contact}`}
+                >
+                  <Contact
+                    onClickUser={sendUser}
+                    name={contact.name}
+                    avatar={contact.avatar}
+                    description={contact.description}
+                    user={contact.user}
+                  />
+                </div>
+              }
+            }
+          })}
       </div>
     </div>
   )
