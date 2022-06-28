@@ -95,7 +95,7 @@
     align-items: baseline;
     justify-content: center;
     flex-direction: column;
-    bottom: -61px;
+    bottom: -1.93rem;
     width: 110px;
     background-color: #fdfdfde3;
     backdrop-filter: blur(10px);
@@ -109,10 +109,6 @@
 
 .rightHeader>a:hover~.profMenu {
     display: flex;
-}
-
-.profMenu> :nth-child(1) {
-    border-bottom: 1px solid #c5c5c5;
 }
 
 .profMenu>a {

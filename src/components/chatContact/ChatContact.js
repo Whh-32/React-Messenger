@@ -43,46 +43,33 @@ const ChatContact = (props) => {
   }
 
   const searchHandler = (text) => {
-    setSearch(text)
+    setSearch(text === undefined ? '' : text)
   }
 
   useEffect(() => {
     props.onGetUser(user);
   }, [user, props])
 
+  console.log(search)
   return (
     <div className={`${index ? classes.smallClass : ''} ${classes.contacts}`} >
       <HeaderContact onSearch={searchHandler} />
       <div className={classes.contactsContain}>
         {isLoading && <div className={classes.loading}></div>}
-        {!isLoading &&
-          contacts.map((contact) => {
-            if (contact.user !== authCtx.user) {
-              if (contact.name === search && search) {
-                return <div key={contact.key} onClick={() => setIndex(contact.key)} className={`${contact.key === index ? classes.active : ''} ${classes.contact}`}
-                >
-                  <Contact
-                    onClickUser={sendUser}
-                    name={contact.name}
-                    avatar={contact.avatar}
-                    description={contact.description}
-                    user={contact.user}
-                  />
-                </div>
-              } else if (search === undefined || search === '') {
-                return <div key={contact.key} onClick={() => setIndex(contact.key)} className={`${contact.key === index ? classes.active : ''} ${classes.contact}`}
-                >
-                  <Contact
-                    onClickUser={sendUser}
-                    name={contact.name}
-                    avatar={contact.avatar}
-                    description={contact.description}
-                    user={contact.user}
-                  />
-                </div>
-              }
-            }
-          })}
+        {!isLoading &&  
+        contacts.filter(contact => (contact.user !== authCtx.user && contact.name.includes(search.toLowerCase())))
+        .map(contact => 
+        <div key={contact.key} onClick={() => setIndex(contact.key)} className={`${contact.key === index ? classes.active : ''} ${classes.contact}`}
+        >
+          <Contact
+            onClickUser={sendUser}
+            name={contact.name}
+            avatar={contact.avatar}
+            description={contact.description}
+            user={contact.user}
+          />
+        </div>)
+        }
       </div>
     </div>
   )
