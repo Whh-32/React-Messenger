@@ -2,12 +2,12 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: URWDIN;
+    font-family:  'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 @font-face {
     font-family: URWDIN;
-    src: url('./assets/fonts/URWDINSemiCond-Regular.ttf');
+    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css');
 }
 
 body {
