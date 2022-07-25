@@ -9,10 +9,10 @@ const Home = () => {
             <div className={classes.contain}>
                 <div className={classes.info} >
                     <span className={classes.title}>
-                        <span>Move faster</span>with intuitive<br />React UI tools
+                        <span>HANG OUT</span>ANYTIME,<br />ANYWHERE
                     </span>
                     <span className={classes.description}>
-                        MUI offers a comprehensive suite of UI tools to help you ship new features faster. Start with Material UI, our fully-loaded component library, or bring your own design system to our production-ready components.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas voluptatem vero maiores maxime doloremque. Dolorem eos ad vitae odit commodi delectus amet ut, tenetur incidunt magni deserunt, deleniti, consequuntur repellendus.
                     </span>
                 </div>
                 <div className={classes.poster}>
@@ -21,7 +21,7 @@ const Home = () => {
             </div>
             <div className={classes.contain}>
                 <span className={classes.des}>
-                    The world's best product teams trust MUI to deliver an unrivaled experience for both developers and users.
+                    DMessenger makes it easy and fun to stay close to your favourite people.
                 </span>
             </div>
         </div>

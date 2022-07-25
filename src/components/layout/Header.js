@@ -56,7 +56,7 @@ const Header = () => {
                                 <NavLink
                                     to="/about"
                                     className={({ isActive }) => isActive ? classes.active : undefined}>
-                                    about
+                                    Doc
                                 </NavLink>
                             </li>
                         </ul>

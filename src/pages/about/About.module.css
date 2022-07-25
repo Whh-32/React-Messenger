@@ -7,8 +7,50 @@
 
 .contain {
     width: 100%;
+    padding: 0 20px;
     max-width: 1200px;
     display: flex;
+    flex-flow: column;
     align-items: center;
     justify-content: center;
+}
+
+.doc {
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    flex-flow: column;
+    justify-content: flex-start;
+}
+
+.title {
+    margin-bottom: 10px;
+}
+
+.des {
+    margin-bottom: 10px;
+}
+
+.btn {
+    width: 100px;
+    height: 40px;
+    margin-right: 10px;
+    color: #0569ac;
+    border: 1px solid #0000002d;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #edf5fc;
+}
+
+@media (max-width: 640px) {
+    .title {
+        font-size: 25px;
+    }
+
+    .des {
+        font-size: 14px;
+    }
 }
