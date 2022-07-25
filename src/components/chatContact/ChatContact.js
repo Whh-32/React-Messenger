@@ -50,7 +50,6 @@ const ChatContact = (props) => {
     props.onGetUser(user);
   }, [user, props])
 
-  console.log(search)
   return (
     <div className={`${index ? classes.smallClass : ''} ${classes.contacts}`} >
       <HeaderContact onSearch={searchHandler} />
