@@ -16,7 +16,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />} >
         <Route index element={<Home />} />
-        <Route path='/about' element={<About />} />
+        <Route path='/doc' element={<About />} />
         <Route path={authCtx.isLogin && '/Contacts/*'} element={<Chats />} />
         <Route path={!authCtx.isLogin && '/Sing-Up'} element={<SingUp />} />
         <Route path={!authCtx.isLogin && '/Login'} element={<SingUp />} />
